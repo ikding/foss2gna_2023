@@ -1,13 +1,17 @@
 # FOSS4GNA 2023 Notes
 
-I am adding the notes I took from the FOSS4GNA 2023 in Baltimore, with my own commentary in the **TL;DR** section of each talk.
+I am adding the notes I took from the [FOSS4GNA 2023](https://foss4gna.org) in Baltimore, with my own commentary in the **TL;DR** section of each talk.
 
 
 ## Finding the World: What on Earth is Global Building Intelligence
 
 Jason Kaufman @ Oak Ridge National Laboratory
 
-**TL;DR**: ORNL's research project to use Bayesian modeling approach to classify building attributes. Very much focused on US right now - modeling results are in "alpha" phase and expected to be publicly released in the coming months; long term goal is to make model for global coverage.
+**TL;DR**: ORNL's research project to use Bayesian modeling approach to classify building attributes, primarily for disaster preparedness purposes. Very much focused on US right now - modeling results are in "alpha" phase and expected to be publicly released in the coming months; long term goal is to make model for global coverage.
+
+Because the "prior" was from data sources like USA Structures, Open Street Maps, etc, the "cold start" cost of a new jurisdiction is likely significant.
+
+[Slides](https://github.com/ikding/foss2gna_2023/issues/1)
 
 <details>
 
@@ -30,7 +34,11 @@ We will discuss the GEM taxonomy’s value for global building attribution and w
 
 Michael Mann @ George Washington Univ
 
-**TL;DR**:
+**TL;DR**: GeoWombat is a remote sensing processing focused library that likely has some overlap with KoBold's internal raster processing tooling. There are some things they do differently (e.g. GeoWombat leverages Ray and Jay whenever possible, to avoid building large task graphs), and it comes with some capabilities that I wasn't sure how to do with internal tooling (e.g. co-registration of Landsat8 and Sentinel2 images), plus some support of scikit-learn style pipelines for remote sensing data. Worth keeping an eye out for sure - although I am getting the impression that this project was mostly done by two people with different full time jobs, so I wasn't sure how much development activity it will see.
+
+Also - the reason that the project is called "GeoWombat" is because Wombat poops cubes (that is, their poop is cube shaped). There, now you are also blessed with this piece of forbidden knowledge, LOL.
+
+[Slides](https://github.com/ikding/foss2gna_2023/issues/2)
 
 <details>
 
@@ -53,7 +61,9 @@ GeoWombat is an excellent tool for anyone working with spatial data, including G
 
 Seth Lawler @ Dewberry
 
-**TL;DR**:
+**TL;DR**: high level overview talk about efforts that are going on in FEM, NOAA, and US Army Corps of Engineers (USACE) for developing large scale flood risk data. The development efforts are very much focused on leveraging open source technology (cloud services, Zarr, parquet, gdal... etc), and also innovative approaches of tracking and visualizing model outputs.
+
+[Slides](https://github.com/ikding/foss2gna_2023/issues/3)
 
 <details>
 
@@ -97,7 +107,11 @@ Discussion will also include how the FAIR principles are guiding development act
 
 Mark Mathis @ Impact Observatory
 
-**TL;DR**:
+**TL;DR**: this is one of the coolest geospatial ML talk I've seen. Impact Observatory publishes an annual land use and land cover (LULC) categorization with Sentinel2 imagery; each year's model requires processing over 2M Sentinel2 scenes (0.6 petabytes), and they use a U-Net CNN trained on 5 billion pixel hand-labeled dataset. They also talked about approaches to suppress spurious classifications using other features (e.g. terrain roughness, annual max NDVI, Ecoregions, etc). Big geospatial data, to be sure!
+
+(I learned later that Mark was a co-founder of Descartes Labs.)
+
+[Slides](https://github.com/ikding/foss2gna_2023/issues/4)
 
 <details>
 
@@ -118,7 +132,9 @@ We now report on new work generating a time sequence of global, annual maps at 1
 
 Robert Cheetham @ Element 84
 
-**TL;DR**:
+**TL;DR**: this talk can be think of the "how the sausage is made" talk that accompanies the recently released [Geospatial Technology Radar 2023](https://element84.com/geospatial-tech-radar-23/#) by Element 84. I found the document and the talk useful in bringing me attention to technologies that are actually quite mature, but I didn't know about it because I was not the main user. For more details, one should check out the document directly. (e.g. I didn't know about STAC, SpatioTemporal Asset Catalogs, until this conference, but it was apparently a very mature technology that are useful for organizing remote sensing imagery.)
+
+[Slides](https://github.com/ikding/foss2gna_2023/issues/5)
 
 <details>
 
@@ -141,7 +157,14 @@ This talk will introduce the idea of a technology radar and provide an overview 
 
 Jia Yu @ Wherobots
 
-**TL;DR**:
+**TL;DR**: this talk was given by the co-founder of Wherobots and co-creator of Apache Sedona, which extended big data systems to support spatial data processing capabilities. Think of the following analogy:
+
+* Big Tabular Data : Apache Spark : DataBricks
+* Big Geospatial Data (mostly tabular?) : Apache Sedona : Wherobots
+
+I remember coming across GeoSpark (precursor of Sedona) back in 2019 when I was looking for scaling out geospatial computations to Spark; great to see that the project is now much more mature and supported by a venture-backed startup!
+
+[Slides](https://github.com/ikding/foss2gna_2023/issues/6)
 
 <details>
 
@@ -162,7 +185,11 @@ Overall, this presentation will give you a comprehensive understanding of Apache
 
 Jed Sundwall @ Radiant Earth
 
-**TL;DR**:
+**TL;DR**: Radiant Earth is the parent organization behind Cloud-Native Geospatial Foundation. This talk goes through a great summary of what cloud native formats are, its current state, and what te organization is working on (e.g. development sprints, paid fellowship for software developers, etc).
+
+More references can be found on the organization's website: https://cloudnativegeo.org
+
+[Slides](https://github.com/ikding/foss2gna_2023/issues/7)
 
 <details>
 
@@ -185,7 +212,26 @@ Furthermore, the presentation will shed light on the broader implications and be
 
 Brad Andrick @ Element 84
 
-**TL;DR**:
+**TL;DR**: this was a great intro-level talk, aimed at providing high-level overview of strategies for visualizing large geospatial datasets. The speaker outlined two paths and relevant solutions. I have to admit that the path 2 is a bit over my head, since I have absolutely no front-end experience.
+
+Path 1: Why you shouldn't try to see everything
+
+* Scale visibility
+* Simplification
+* Clustering
+* Icon Overlap
+* Heatmaps
+* Aggregations
+
+Path 2: If you still want to try to see everything
+
+* Canvas
+* WebGL
+* PostGIS + mvt
+* static tiles
+* server side maps
+
+[Slides](https://github.com/ikding/foss2gna_2023/issues/8)
 
 <details>
 
@@ -202,7 +248,9 @@ Datasets today can be big, sometimes really big. Visualizing data at these large
 
 Jody Garnett @ OSGeo; Andrea Aime @ GeoSolutions
 
-**TL;DR**:
+**TL;DR**: The talk is way over my head since I have no experience with GeoServer or the problem it solves. Including the slide here in case it is helpful for others.
+
+[Slides](https://github.com/ikding/foss2gna_2023/issues/9)
 
 <details>
 
